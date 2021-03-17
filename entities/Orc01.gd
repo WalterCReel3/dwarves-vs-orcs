@@ -1,15 +1,32 @@
 extends "res://entities/Actor.gd"
 
+var engaged: bool = false
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+onready var sprite: Sprite = get_node("Position2D/Sprite")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("Hi.  I'm orc01 _ready", self.name)
+	rng.randomize()
+	set_movement(-30)
+
+func set_movement(speed):
+	velocity.x = speed
 
 func process_pathing(delta):
-	velocity.x = -30
-	move_and_collide(velocity * delta)
+	var collision = move_and_collide(velocity * delta)
+	if collision != null:
+		engaged = true
+		print("Entering engaged for ", self.name)
+		set_movement(0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func process_melee(delta):
+	var r = rng.randf()
+	var g = rng.randf()
+	var b = rng.randf()
+	sprite.modulate = Color(r, g, b, 1)
+
 func _process(delta):
-	# get_input()
-	process_pathing(delta)
+	if engaged:
+		process_melee(delta)
+	else:
+		process_pathing(delta)
