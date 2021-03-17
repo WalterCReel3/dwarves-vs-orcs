@@ -19,6 +19,12 @@ config/name="Dwarves vs. Orcs"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=960
+window/size/height=640
+window/size/resizable=false
+
 [input]
 
 move_right={
