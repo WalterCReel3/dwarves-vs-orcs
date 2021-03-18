@@ -8,6 +8,12 @@ var target = Vector2()
 func _ready():
 	target = self.position
 	
+func get_type():
+	return "DwarfEntity"
+
+func is_type(type):
+	return type == "DwarfEntity"
+
 func get_input():
 	if Input.is_action_pressed("move_left"):
 		velocity.x = -speed
@@ -32,7 +38,6 @@ func process_pathing(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# get_input()
 	process_pathing(delta)
 
 func set_target(position):
